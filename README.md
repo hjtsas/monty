@@ -1,4 +1,4 @@
-This is a  monty program that is sone by Hoja Tesema
+This is a  monty program that is done by Hoja Tesema
 
 Usage: monty file
 where file is the path to the file containing Monty byte code
