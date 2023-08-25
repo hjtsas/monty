@@ -1,37 +1,42 @@
 #include "monty.h"
+
 /**
- * f_push - add node to the stack
- * @head: stack head
- * @counter: line_number
- * Return: no return
-*/
+ * f_push - add node to the stack or queue
+ * @head: pointer to the head of the stack or queue
+ * @counter: line number in the input file
+ * 
+ * This function reads a string from the global state variable
+ * and converts it to an integer. Then it adds a node with that
+ * integer value to the stack or queue, depending on the mode.
+ */
 void f_push(stack_t **head, unsigned int counter)
 {
-	int n, j = 0, flag = 0;
+    int n;
+    char *endptr;
 
-	if (bus.arg)
-	{
-		if (bus.arg[0] == '-')
-			j++;
-		for (; bus.arg[j] != '\0'; j++)
-		{
-			if (bus.arg[j] > 57 || bus.arg[j] < 48)
-				flag = 1; }
-		if (flag == 1)
-		{ fprintf(stderr, "L%d: usage: push integer\n", counter);
-			fclose(bus.file);
-			free(bus.content);
-			free_stack(*head);
-			exit(EXIT_FAILURE); }}
-	else
-	{ fprintf(stderr, "L%d: usage: push integer\n", counter);
-		fclose(bus.file);
-		free(bus.content);
-		free_stack(*head);
-		exit(EXIT_FAILURE); }
-	n = atoi(bus.arg);
-	if (bus.lifi == 0)
-		addnode(head, n);
-	else
-		addqueue(head, n);
+    if (global_state.arg == NULL)
+    {
+        fprintf(stderr, "L%d: usage: push integer\n", counter);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Convert the string argument to an integer */
+    n = strtol(global_state.arg, &endptr, 10);
+
+    /* Check if the conversion was successful */
+    if (*endptr != '\0')
+    {
+        fprintf(stderr, "L%d: usage: push integer\n", counter);
+        exit(EXIT_FAILURE);
+    }
+
+    /* Add a node with the integer value to the stack or queue */
+    if (global_state.mode == STACK)
+    {
+        add_node(head, n);
+    }
+    else
+    {
+        add_queue(head, n);
+    }
 }
