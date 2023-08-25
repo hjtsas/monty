@@ -7,6 +7,7 @@ void addqueue(stack_t **head, int n); /* declare addqueue function */
  * f_push - pushes an element to the stack or queue
  * @head: double pointer to the head of the stack
  * @counter: line number of the instruction
+ * Return: no return
  */
 
 void f_push(stack_t **head, unsigned int counter)
