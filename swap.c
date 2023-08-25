@@ -10,12 +10,12 @@ void f_swap(stack_t **head, unsigned int counter)
 {
 	int temp;
 
-	if (*head == NULL || (head)->next == NULL)
+	if (*head == NULL || (*head)->next == NULL)
 	{
 		fprintf(stderr, "L%d: can’t swap, stack too short\n", counter);
 		exit(EXIT_FAILURE);
 	}
-	temp = (head)->n; /* save the value of the top element */
-	(*head)->n = (head)->next->n;
-	(head)->next->n = temp; /* assign the saved value to the second element */
+	temp = (*head)->n; /* save the value of the top element */
+	(*head)->n = (*head)->next->n;
+	(*head)->next->n = temp; /* assign the saved value to the second element */
 }

@@ -1,24 +1,34 @@
 #include "monty.h"
 
-#define ERROR_ADD "L%d: can't add, stack too short\n"
-
 /**
  * f_add - adds the top two elements of the stack
- * @counter: line_number
+ * @head: double pointer to the head of the stack
+ * @counter: line number of the instruction
  * Return: no return
  */
 
-void f_add(unsigned int counter)
+void f_add(stack_t **head, unsigned int counter)
 {
-	int sum;
+	stack_t *temp;
+	int len = 0, aux;
 
-	if (stack_len(bus.head) < 2)
+	temp = *head;
+	while (temp)
 	{
-		fprintf(stderr, ERROR_ADD, counter);
-		free_all();
+		temp = temp->next;
+		len++;
+	}
+	if (len < 2)
+	{
+		fprintf(stderr, "L%d: can't add, stack too short\n", counter);
+		fclose(bus.file);
+		free(bus.content);
+		free_stack(*head);
 		exit(EXIT_FAILURE);
 	}
-	sum = bus.head->n + bus.head->next->n;
-	pop(&bus.head, counter);
-	bus.head->n = sum;
+	temp = *head;
+	aux = temp->n + temp->next->n;
+	temp->next->n = aux;
+	*head = temp->next;
+	free(temp);
 }

@@ -15,7 +15,7 @@ void f_pop(stack_t **head, unsigned int counter)
 		fprintf(stderr, "L%d: can't pop an empty stack\n", counter);
 		exit(EXIT_FAILURE);
 	}
-	temp = *stack; /* save the top element of the stack */
+	temp = *head; /* save the top element of the stack */
 	printf("%d\n", temp->n); /* print the top element of the stack */
 	*head = (*head)->next; /* move the stack pointer to the next element */
 	if (*head != NULL)
